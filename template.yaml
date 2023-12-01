@@ -1,0 +1,74 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: v1beta3-demo
+  title: PR template
+  description: Just open a pr
+spec:
+  owner: user:guest
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - backstage-ct
+            allowedProjects:
+              - pr-test
+    - title: Directory name
+      required:
+        - name
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Name of the directory
+          ui:autofocus: true
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-remote
+      name: Fetch Remote Repo
+      action: fetch:plain
+      input:
+        url: https://github.com/backstage-ct/pr-test.git
+        targetPath: pr-test
+
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          name: ${{ parameters.name }}
+
+    - id: copy-file
+      name: Copy file
+      action: fs:rename
+      input:
+        files:
+          - from: ./hello.yaml
+            to: ./pr-test/hello.yaml
+
+    # PR back the change
+    - id: pr-repo
+      name: PR to repo
+      action: publish:github:pull-request
+      input:
+        repoUrl: github.com/backstage-ct/pr-test
+        branchName: some-branch-name
+        gitCommitMessage: Message
+        title: PR Title
+        sourcePath: myrepo
+        targetPath: '.'
