@@ -67,8 +67,9 @@ spec:
       action: publish:github:pull-request
       input:
         repoUrl: github.com/backstage-ct/pr-test
+        description: this is a test
         branchName: some-branch-name
         gitCommitMessage: Message
         title: PR Title
         sourcePath: myrepo
-        targetPath: '.'
+        targetPath: ./pr-test/
