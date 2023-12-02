@@ -71,5 +71,4 @@ spec:
         branchName: some-branch-name
         gitCommitMessage: Message
         title: PR Title
-        sourcePath: myrepo
-        targetPath: ./pr-test/
+        sourcePath: ./pr-test
