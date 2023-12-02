@@ -66,7 +66,7 @@ spec:
       name: PR to repo
       action: publish:github:pull-request
       input:
-        repoUrl: github.com/backstage-ct/pr-test
+        repoUrl: github.com?repo=pr-test&owner=backstage-ct
         description: this is a test
         branchName: some-branch-name
         gitCommitMessage: Message
