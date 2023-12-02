@@ -73,4 +73,4 @@ spec:
         title: PR Title
         sourcePath: ./pr-test
         # not an important token just for testing purpose only on one repo
-        token: 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
+        token: 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
