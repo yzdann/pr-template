@@ -35,10 +35,6 @@ spec:
           type: string
           description: Name of the directory
           ui:autofocus: true
-        branch-name:
-          title: Branch name
-          type: string
-          description: Name of the branch
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
@@ -72,7 +68,7 @@ spec:
       input:
         repoUrl: github.com?repo=pr-test&owner=backstage-ct
         description: this is a test
-        branchName: "${{ parameters.branch-name }}"
+        branchName: this
         gitCommitMessage: Message
         title: PR Title
         sourcePath: ./pr-test
