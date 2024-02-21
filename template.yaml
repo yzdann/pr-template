@@ -26,7 +26,7 @@ spec:
               - backstage-ct
             allowedProjects:
               - pr-test
-    - title: Directory name
+    - title: Repo name
       required:
         - name
       properties:
@@ -42,39 +42,39 @@ spec:
       name: Create repo
       action: github:repo:create
       input:
-        repoUrl: github.com?repo=foobar&owner=backstage-ct
+        repoUrl: github.com?repo=${{ parameters.name }}&owner=backstage-ct
         
-    - id: fetch-remote
-      name: Fetch Remote Repo
-      action: fetch:plain
-      input:
-        url: https://github.com/backstage-ct/pr-test.git
-        targetPath: pr-test
+    # - id: fetch-remote
+    #   name: Fetch Remote Repo
+    #   action: fetch:plain
+    #   input:
+    #     url: https://github.com/backstage-ct/pr-test.git
+    #     targetPath: pr-test
 
-    - id: fetch-base
-      name: Fetch Base
-      action: fetch:template
-      input:
-        url: ./template
-        values:
-          name: ${{ parameters.name }}
+    # - id: fetch-base
+    #   name: Fetch Base
+    #   action: fetch:template
+    #   input:
+    #     url: ./template
+    #     values:
+    #       name: ${{ parameters.name }}
 
-    - id: copy-file
-      name: Copy file
-      action: fs:rename
-      input:
-        files:
-          - from: ./hello.yaml
-            to: ./pr-test/hello.yaml
+    # - id: copy-file
+    #   name: Copy file
+    #   action: fs:rename
+    #   input:
+    #     files:
+    #       - from: ./hello.yaml
+    #         to: ./pr-test/hello.yaml
 
-    # PR back the change
-    - id: pr-repo
-      name: PR to repo
-      action: publish:github:pull-request
-      input:
-        repoUrl: github.com?repo=pr-test&owner=backstage-ct
-        description: this is a test
-        branchName: this
-        gitCommitMessage: Message
-        title: PR Title
-        sourcePath: ./pr-test
+    # # PR back the change
+    # - id: pr-repo
+    #   name: PR to repo
+    #   action: publish:github:pull-request
+    #   input:
+    #     repoUrl: github.com?repo=pr-test&owner=backstage-ct
+    #     description: this is a test
+    #     branchName: this
+    #     gitCommitMessage: Message
+    #     title: PR Title
+    #     sourcePath: ./pr-test
