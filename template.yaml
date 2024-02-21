@@ -38,6 +38,12 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
+    - id: create-repo
+      name: Create repo
+      action: publish:github:pull-request
+      input:
+        repoUrl: github.com?repo=foobar&owner=backstage-ct
+        
     - id: fetch-remote
       name: Fetch Remote Repo
       action: fetch:plain
