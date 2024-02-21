@@ -40,7 +40,7 @@ spec:
   steps:
     - id: create-repo
       name: Create repo
-      action: publish:github:pull-request
+      action: github:repo:create
       input:
         repoUrl: github.com?repo=foobar&owner=backstage-ct
         
